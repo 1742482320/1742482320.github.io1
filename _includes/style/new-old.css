@@ -1,0 +1,34 @@
+
+.pager{
+    position: relative;
+}
+.previous{
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px 10px;
+    margin-top: 10px;
+    transition: 0.4s ease;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.previous a,.next a{
+    color: #999;
+}
+.next{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px 10px;
+    margin-top: 10px;
+    transition: 0.4s ease;
+    cursor:pointer;
+    border-radius: 3px;
+}
+.previous:hover,.next:hover{
+    background-color: #B9D3EE;
+    font-size: #fff;
+}
+.previous:hover a,.next:hover a,.previous:hover,.next:hover,.previous a:hover,.next a:hover{
+    color: #fff;
+}

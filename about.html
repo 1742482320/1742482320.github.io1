@@ -1,0 +1,13 @@
+---
+layout: default
+---
+
+<!-- 文章页 -->
+<article class="post-container">
+    {% for post in site.posts %}
+    <h1>{{post.title}}</h1>
+    <section>
+        {{post}}
+    </section>
+    {% endfor %}
+</article>

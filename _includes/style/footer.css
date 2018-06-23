@@ -1,0 +1,55 @@
+
+.footer{
+    width: 100%;
+    padding-top: 80px;
+}
+hr.footer-wrapper{
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+.social-list{
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+    padding: 50px;
+}
+.social-list li{
+    display: inline-block;
+    margin: 0 30px;
+}
+.social-list li a{
+    padding: 10px;
+    color: #999;
+}
+.social-list li a i{
+    font-size: 1.5rem;
+}
+.copyright{
+    font-size: 0.8rem;
+    color: #999;
+}
+.traffic-box{
+    float: right;
+}
+.footer_bsz{
+    float: right;
+}
+.paging .paging-previous{
+    margin-right: 10px;
+    padding: 5px 5px 5px 5px;
+    font-size: 0.6rem;
+    color: #BF1827;
+    border-bottom: 1px solid #999;
+}
+.paging .paging-next{
+    margin-left: 10px;
+    padding: 5px 5px 5px 5px;
+    font-size: 0.6rem;
+    color: #BF1827;
+    border-bottom: 1px solid #999;
+}
+.paging-number{
+    font-size: 0.6rem;
+    color: #666;
+}

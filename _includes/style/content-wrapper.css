@@ -1,0 +1,60 @@
+
+/* 主体列表 */
+.post-list li{
+    margin: 0 0 2.2em 0;
+    -webkit-box-shadow: 4px 4px 4px #efefef, -4px -4px 4px #efefef, 4px -4px 4px #efefef, -4px 4px 4px #efefef;
+    box-shadow: 4px 4px 4px #efefef, -4px -4px 4px #efefef, 4px -4px 4px #efefef, -4px 4px 4px #efefef;
+}
+.post-list li:hover{
+    -webkit-box-shadow: 4px 4px 4px #D2DEEB, -4px -4px 4px #D2DEEB, 4px -4px 4px #D2DEEB, -4px 4px 4px #D2DEEB;
+    box-shadow: 4px 4px 4px #D2DEEB, -4px -4px 4px #D2DEEB, 4px -4px 4px #D2DEEB, -4px 4px 4px #D2DEEB;
+}
+.post-list_h2{
+    font-weight: 100;
+    padding: 10px 0 10px 10px;
+}
+.post-list_h2 a{
+    color: #333;
+}
+.post-list_p{
+    border-left: 3px solid #458B74;
+    margin: 0;
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #444;
+    line-height: 1.7em;
+    padding-left: 20px;
+}
+.post-list_meta{
+    padding: 8px 0 40px 10px;
+}
+.post-list_meta_i{
+    display: inline-block;
+    margin: 0 5px;
+}
+.post-list_meta_date{
+    color: #c7c7c7;
+}
+.post-list_meta_i img{
+    max-height: 20px;
+    vertical-align: middle;
+    margin: 3px;
+}
+.post-list_meta_tags a{
+    font-size: 0.6rem;
+    color: #666;
+}
+.post-list_meta_r{
+    margin-left: 20px;
+    position: relative;
+}
+.post-list_meta_r a{
+    color: #458B74;
+}
+.post-list_meta_r::after{
+    content: "";
+    position: absolute;
+    width: 17.8em;
+    border-top: 1px solid #ddd;
+    top: 1.5em;
+}

@@ -1,40 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
-  {% include head.html %}
+{% include head.html %}
 
-  <body>
+<body>
 
-    <span class="mobile btn-mobile-menu">        
-      <div class="nav_container">
-         <nav class="nav-menu-item" style = "float:right">
-            <i class="nav-menu-item">
-              <a href="/#blog" title="{{site.blog_button.description}}" class="blog-button">  {{site.blog_button.title}}
-              </a>
-            </i>
-            {% for item in site.nav %}
-                <i class="nav-menu-item">
+    <nav class="mobile-menu">
+        <ul class="mobile-list">
+            <li><a href="/#blog" title="博客主页">博客主页</a></li>
+            <li><a href="/archive">所有文章</a></li>
+            <li><a href="/tags">标签</a></li>
+            <li><a href="/about">关于我</a></li>
+        </ul>
+    </nav>
 
-                  <a href="{{item.url}}" title="{{item.description}}" class="btn-mobile-menu__icon">
-                      {{item.title}}
-                  </a>
-                </i>
-            {% endfor %}
-          </nav>
-      </div>
-    </span>
-    
-    {% include side-panel.html %}
+    <!-- 侧边版块 -->
+    {% include panel.html %}
 
+    <!-- 主体版块 -->
     <div class="content-wrapper">
         <div class="content-wrapper__inner">
-            {{ content }}
+            {{content}}
             {% include footer.html %}
         </div>
     </div>
-    
+
     {% include external.html %}
-    
-  </body>
+
+</body>
 
 </html>

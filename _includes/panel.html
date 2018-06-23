@@ -1,0 +1,42 @@
+<!-- 封面和侧版 -->
+<header class="panel-cover {% if page.url != '/' or page.layout =='post' %}panel-cover-collapsed{% endif %}">
+    <div class="panel-inner">
+        <div class="panel-main__inner">
+            <div class="panel-main_content">
+                <!-- 头像效果-start -->
+                <div class="circlebox right_to_left">            
+                    <a href="/#blog" title="前往 {{ site.title }} 的主页" class="blog-button">
+                        <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+                        <div class="info">
+                            <h2> 
+                                {% if site.avatarTitle %}
+                                    {{site.avatarTitle}}
+                                {% endif %}
+                            </h2>
+                            <i>
+                                {% if site.avatarDesc %}
+                                    {{site.avatarDesc}}
+                                {% endif %}
+                            </i>
+                        </div>
+                    </a>
+                </div>
+                <!-- 头像效果-end -->
+                <h1 class="panel-main_h1">{{site.title}}</h1>
+                <span class="panel-main_subtitle">{{site.subtitle}}</span>
+                <hr class="panel-divider">
+                <p class="panel-main_description">{{site.description}}</p>
+                <hr class="panel-divider panel-divider-s">
+                <nav class="panel-main_nav">
+                    <ul>
+                        <li><a href="/#blog" title="博客主页">博客主页</a></li>
+                        <li><a href="/archive">所有文章</a></li>
+                        <li><a href="/tags">标签</a></li>
+                        <li><a href="/about">关于我</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="panel-cover--overlay"></div>
+    </div>
+</header>

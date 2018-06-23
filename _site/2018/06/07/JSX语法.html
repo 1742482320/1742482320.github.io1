@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+
+
+<!-- 页头 -->
+<head>
+
+    <!-- 基础 ============================================== -->
+    <meta charset="utf-8">
+    <!-- 响应式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- 优先使用当前文档的描述 -->
+    <title>JSX语法详解</title>
+    <meta name="description" content="欢迎来到我的个人站">
+    <meta name="author" content="海东">
+
+    <!-- 网站图标 ============================================== -->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" />
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/png">
+
+    <!-- 字体 ============================================== -->
+    <link rel="stylesheet" href="/css/font/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- CSS ============================================== -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- JS ============================================== -->
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    <!-- 访客统计插件: 不蒜 ============================================== -->
+    <script 
+        async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>  
+
+    <!-- 百度统计 -->
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?0b6a7e0c54013c4e67869feafd95149a";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head>
+
+<body>
+
+    <nav class="mobile-menu">
+        <ul class="mobile-list">
+            <li><a href="/#blog" title="博客主页">博客主页</a></li>
+            <li><a href="/archive">所有文章</a></li>
+            <li><a href="/tags">标签</a></li>
+            <li><a href="/about">关于我</a></li>
+        </ul>
+    </nav>
+
+    <!-- 侧边版块 -->
+    <!-- 封面和侧版 -->
+<header class="panel-cover panel-cover-collapsed">
+    <div class="panel-inner">
+        <div class="panel-main__inner">
+            <div class="panel-main_content">
+                <!-- 头像效果-start -->
+                <div class="circlebox right_to_left">            
+                    <a href="/#blog" title="前往 海东 的主页" class="blog-button">
+                        <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+                        <div class="info">
+                            <h2> 
+                                
+                                    haidong
+                                
+                            </h2>
+                            <i>
+                                
+                                    学习笔记
+                                
+                            </i>
+                        </div>
+                    </a>
+                </div>
+                <!-- 头像效果-end -->
+                <h1 class="panel-main_h1">海东</h1>
+                <span class="panel-main_subtitle">个人站</span>
+                <hr class="panel-divider">
+                <p class="panel-main_description">欢迎来到我的个人站</p>
+                <hr class="panel-divider panel-divider-s">
+                <nav class="panel-main_nav">
+                    <ul>
+                        <li><a href="/#blog" title="博客主页">博客主页</a></li>
+                        <li><a href="/archive">所有文章</a></li>
+                        <li><a href="/tags">标签</a></li>
+                        <li><a href="/about">关于我</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="panel-cover--overlay"></div>
+    </div>
+</header>
+
+    <!-- 主体版块 -->
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container">
+    <header>
+        <h1 class="post_h1">JSX语法详解</h1>
+        <div class="post_meta">
+            <div class="post_meta_i">
+                <img class="post_meta_img" src="/images/calendar.png"/> 
+                2018-06-07
+            </div>
+            <span class="bsz">
+                <span id="busuanzi_container_page_pv">
+                    | 阅读：<span id="busuanzi_value_page_pv"></span>次
+                </span>
+            </span>
+        </div>
+    </header>
+
+    <h3 id="jsx是什么">JSX是什么</h3>
+
+<p>JSX是一种像下面这样的语法：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;
+</code></pre></div></div>
+
+<p>它是一种JavaScript语法扩展，在React中可以方便地用来描述UI。</p>
+
+<p>本质上，JSX为我们提供了创建React元素方法 <code>（React.createElement(component, props, ...children)）</code>的语法。上面的代码实质上等价于：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var element = React.createElement(
+  "h1",
+  null,
+  "Hello, world!"
+);
+</code></pre></div></div>
+
+<h3 id="jsx代表js对象">JSX代表JS对象</h3>
+
+<p>JSX本身也是一个表达式，在编译后，JSX表达式会变成普通的JavaScript对象。</p>
+
+<p>你可以在if语句或for循环中使用JSX，你可以将它赋值给变量，你可以将它作为参数接收，你也可以在函数中返回JSX。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function getGreeting(user) {
+  if (user) {
+    return &lt;h1&gt;Hello, {formatName(user)}!&lt;/h1&gt;;
+  }
+  return &lt;h1&gt;Hello, Stranger.&lt;/h1&gt;;
+}
+</code></pre></div></div>
+
+<p>经过babel会变成下面的js代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function test(user) {
+    if (user) {
+        return React.createElement(
+            "h1",
+            null,
+            "Hello, ",
+            formatStr(user),
+            "!"
+        );
+    }
+    return React.createElement(
+        "h1",
+        null,
+        "Hello, Stranger."
+    );
+}
+</code></pre></div></div>
+
+<p>###　在JSX中使用JavaScript表达式</p>
+
+<p>在JSX中插入JavaScript表达式十分简单，直接在JSX中将JS表达式用大括号括起来即可。例如：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function formatName(user) {
+  return user.firstName + ' ' + user.lastName;
+}
+
+const user = {
+  firstName: 'Harper',
+  lastName: 'Perez'
+};
+
+const element = (
+  &lt;h1&gt;
+    Hello, {formatName(user)}!
+  &lt;/h1&gt;
+);
+
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+</code></pre></div></div>
+
+<p>上面的代码中用到了函数调用表达式fromatName(user)。</p>
+
+<p>在JavaScript中，表达式就是一个短语，Javascript解释器会将其计算出一个结果，常量就是最简单的一类表达式。常用的表达式有：</p>
+
+<blockquote>
+  <p>变量名；
+函数定义表达式；
+属性访问表达式；
+函数调用表达式；
+算数表达式；
+关系表达式；
+逻辑表达式；</p>
+</blockquote>
+
+<p>需要注意的是，if语句以及for循环不是JavaScript表达式，不能直接作为表达式写在{}中，但可以先将其赋值给一个变量</p>
+
+<p>需要注意的是，if语句以及for循环不是JavaScript表达式，不能直接作为表达式写在{}中，但可以先将其赋值给一个变量（变量是一个JavaScript表达式）:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function NumberDescriber(props) {
+  let description;
+  if (props.number % 2 == 0) {
+    description = &lt;strong&gt;even&lt;/strong&gt;;
+  } else {
+    description = &lt;i&gt;odd&lt;/i&gt;;
+  }
+  return &lt;div&gt;{props.number} is an {description} number&lt;/div&gt;;
+}
+</code></pre></div></div>
+
+<h3 id="jsx属性值">JSX属性值</h3>
+
+<p>你可以使用引号将字符串字面量指定为属性值：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const element = &lt;div tabIndex="0"&gt;&lt;/div&gt;;
+</code></pre></div></div>
+
+<p>注意这里的”0”是一个字符串字面量。</p>
+
+<p>或者你可以将一个JavaScript表达式嵌在一个大括号中作为属性值：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cont element = &lt;img src={user.avatarUrl}&gt;&lt;/img&gt;;
+</code></pre></div></div>
+
+<p>这里用到的是JavaScript属性访问表达式，上面的代码将编译为：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const element = React.createElement("img", { src: user.avatarUrl });
+</code></pre></div></div>
+
+<h3 id="jsx的children">JSX的Children</h3>
+
+<p>首先JSX可以是一个不包含Children的empty tag。如：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const element = &lt;img src={user.avatarUrl} /&gt;;
+</code></pre></div></div>
+
+<p>JSX也可以像HTML标签一样包含Children：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const element = (
+  &lt;div&gt;
+    &lt;h1&gt;Hello!&lt;/h1&gt;
+    &lt;h2&gt;Good to see you here.&lt;/h2&gt;
+  &lt;/div&gt;
+);
+</code></pre></div></div>
+
+<p>这种写法在生成React元素的时候给我们带来了很大的便利，而且能够更加直观地描述UI。不然我们需要像下面这样创建和上面代码等价的React元素：</p>
+
+<p>const element = React.createElement(
+  “div”,
+  null,
+  React.createElement(
+    “h1”,
+    null,
+    “Hello!”
+  ),
+  React.createElement(
+    “h2”,
+    null,
+    “Good to see you here.”
+  )
+);</p>
+
+<p><strong>tip: React DOM结点使用骆驼拼写法给属性命名</strong></p>
+
+<p>例如：class在JSX中应写作className，tabindex应写作tabIndex。</p>
+
+<p>另外关于JSX的children需要注意的是:</p>
+
+<p>React自定义组件的chilren是不会像固有的HTML标签的子元素那样自动render的，我们看下面的例子：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>代码1
+class Test extends React.Component {
+    render() {
+      return (
+        &lt;div&gt;
+          Here is a list:
+          &lt;ul&gt;
+            &lt;li&gt;Item 1&lt;/li&gt;
+            &lt;li&gt;Item 2&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      ) 
+    }
+};
+ReactDOM.render(
+    &lt;Test /&gt;,
+    document.getElementById('test')
+);
+</code></pre></div></div>
+
+
+    <section>
+    <hr class="footer-wrapper">
+    <div class="pager">
+        
+        <div class="previous">
+             上一篇：
+            <a href="/2016/11/20/markdownTool.html" title="Markdown工具集">
+                <span>Markdown工具集</span>
+            </a>
+        </div>
+        
+        
+        <div class="next">
+            下一篇： 
+            <a href="/2018/06/09/npm%E7%AC%94%E8%AE%B0.html" title="npm的一些介绍和常用命令"> 
+                <span>npm的一些介绍和常用命令</span>
+            </a>
+        </div>
+        
+    </div>
+</section>
+
+</article>
+            <section class="footer">
+    <hr class="footer-wrapper">
+    <ul class="social-list">
+
+        <!-- Github -->
+         
+          <li>
+            <a href="https://github.com/1742482320" title="@1742482320 的 Github" target="_blank">
+              <i class='fa fa-github fa-2x'></i>
+            </a>
+          </li>
+          
+
+        <!-- RSS -->
+          <li>
+            <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+              <i class='fa fa-rss fa-2x'></i>
+            </a>
+          </li>
+
+          <!-- Email -->
+          
+          <li>
+            <a href="mailto:1742482320@qq.com" title="联系我">
+              <i class="fa fa-envelope"></i>
+            </a>
+          </li>
+          
+
+    </ul>
+    <p class="copyright">
+        Copyright &copy; 海东 2018-06-20
+        <span class="footer_bsz">
+          <span id="busuanzi_container_site_pv">
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+        </span>
+    </p>
+</section>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+</body>
+
+</html>

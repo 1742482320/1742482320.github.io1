@@ -1,0 +1,16 @@
+<!-- 博客主体内容 -->
+<ul class="post-list">
+    {% for post in paginator.posts %}
+    <li>
+        <h2 class="post-list_h2">
+            <a href="{{site.baseurl}}{{post.url}}" title="访问{{post.title}}">{{post.title}}</a>
+        </h2>
+        <p class="post-list_p">{{post.content | strip_html | strip_newlines | truncate: 250}}</p>
+        <div class="post-list_meta">
+            <div class="post-list_meta_i post-list_meta_date"><img src="/images/calendar.png">{{post.date | date: "%F"}}</div>
+            <div class="post-list_meta_i post-list_meta_tags"><img src="/images/tag-icon.svg"><a href="#">{{post.tag}}</a></div>
+            <div class="post-list_meta_i post-list_meta_r"><a href="{{post.url}}">阅读全文 »</a></div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

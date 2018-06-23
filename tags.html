@@ -1,25 +1,42 @@
 ---
-layout: page
-title: 
-header: 根据快速导航到相应的文章
-group: navigation
+layout: default
+title: 标签
 ---
-{% include JB/setup %}
 
-<ul class="tag_box inline">
-  {% assign tags_list = site.tags %}  
-  {% include JB/tags_list %}
-</ul>
+<!-- 标签页 -->
+<article class="post-container">
 
-<div class = "card">
-{% for tag in site.tags %} 
+    <!-- 变量接收页面所有标签 -->
+    {% assign tags_list = site.tags %}
 
-  <h3 id="{{ tag[0] }}-ref">{{ tag[0] }}</h3>
-  <ul>
-    {% assign pages_list = tag[1] %}  
-    {% include JB/pages_list %}
-  </ul>
+    <ul>
+        <!-- 循环输出所有标签 -->
+        {% for tag in tags_list %} 
+        <!-- 为标签绑定锚点 -->
+    	<li><a href="{{ site.baseurl }}{{ tag.url }}#{{ tag[0] }}-ref">{{ tag[0] }}</a></li>
+        {% endfor %}
+    </ul>
 
+    <!-- 循环所有标签 -->
+    {% for tag in tags_list %} 
 
-{% endfor %}
-</div>
+    <!-- 输出标签并添加锚点 -->
+    <h3 id="{{ tag[0] }}-ref">{{ tag[0] }}</h3>
+    <ul>
+
+        <!-- 变量接收所有标签页 -->
+        {% assign pages_list = tag[1] %} 
+
+        <!-- 遍历标签页 -->
+        {% for page in pages_list %}
+
+            <!-- 输出标题 -->
+            <li><a href="{{ site.baseurl }}{{page.url}}">{{page.title}}</a></li>
+
+        {% endfor %}
+    </ul>
+    
+    {% endfor %}
+
+</article>
+
