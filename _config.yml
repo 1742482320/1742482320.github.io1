@@ -9,14 +9,9 @@ avatarTitle: haidong
 # 头像里面的描述
 avatarDesc: 学习笔记
 
-# 社交账号
 social:
     github: 1742482320
     email: 1742482320@qq.com
-
-# 百度统计id
-baidu:
-    id: 0b6a7e0c54013c4e67869feafd95149a
 
 # 分页
 gems: [jekyll-paginate,jekyll-sitemap]

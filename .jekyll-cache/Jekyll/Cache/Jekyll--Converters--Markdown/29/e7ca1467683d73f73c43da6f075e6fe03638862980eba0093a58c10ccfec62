@@ -1,0 +1,220 @@
+I"&s<h3 id="连接数据库">连接数据库</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost/studentmanagement</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="定义schema表结构">定义Schema（表结构）</h3>
+
+<p>mongoose中任何任何事物都是从Schema开始的。每一个Schema对应MongoDB中的一个集合（collection）。Schema中定义了集合的结构。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">blogSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>  
+    <span class="na">title</span><span class="p">:</span>  <span class="nb">String</span><span class="p">,</span>  
+    <span class="na">author</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>  
+    <span class="na">body</span><span class="p">:</span>   <span class="nb">String</span><span class="p">,</span>  
+    <span class="na">comments</span><span class="p">:</span> <span class="p">[{</span> <span class="na">body</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="na">date</span><span class="p">:</span> <span class="nb">Date</span> <span class="p">}],</span>  
+    <span class="na">date</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">Date</span><span class="p">,</span> <span class="na">default</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span> <span class="p">},</span>  
+    <span class="na">hidden</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span> 
+    <span class="na">meta</span><span class="p">:</span> <span class="p">{</span>    <span class="na">votes</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span>    <span class="na">favs</span><span class="p">:</span>  <span class="nb">Number</span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>如果之后想要在Schema中添加键，可以使用Schema#add方法。</p>
+
+<h3 id="创造一个model">创造一个model</h3>
+
+<p>为了使用schema定义，我们需要转换blogSchema为一个Model。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">blogModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">blog</span><span class="dl">'</span><span class="p">,</span> <span class="nx">blogSchema</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>在数据库里创建集合的时候 会自动变成复数(blogs)。</p>
+
+<h3 id="实例方法">实例方法</h3>
+
+<p>创建一个动物结构，并添加一个方法</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">animalSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span> 
+    <span class="na">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="nb">String</span>    
+<span class="p">});</span>
+<span class="nx">animalSchema</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">findSimilarTypes</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">Animal</span><span class="dl">'</span><span class="p">).</span><span class="nx">find</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="p">},</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>现在所有的动物实例有findSimilarTypes方法。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">AnimalModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">Animal</span><span class="dl">'</span><span class="p">,</span> <span class="nx">animalSechema</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AnimalModel</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">dog</span><span class="dl">'</span> <span class="p">});</span>
+<span class="nx">dog</span><span class="p">.</span><span class="nx">findSimilarTypes</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">dogs</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dogs</span><span class="p">);</span> <span class="c1">// woof</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>重写一个默认的实例方法可能会导致不期待的结果。</p>
+
+<h3 id="statics方法">Statics方法</h3>
+
+<p>给Model添加一个静态方法也是简单的。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">animalSchema</span><span class="p">.</span><span class="nx">statics</span><span class="p">.</span><span class="nx">findByName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">)</span> <span class="p">},</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">AnimalModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">Animal</span><span class="dl">'</span><span class="p">,</span> <span class="nx">animalSchema</span><span class="p">);</span>
+<span class="nx">AnimalModel</span><span class="p">.</span><span class="nx">findByName</span><span class="p">(</span><span class="dl">'</span><span class="s1">fido</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">animals</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">animals</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="methods和statics的区别">methods和statics的区别</h3>
+
+<p>区别就是一个给Model添加方法（statics），一个给实例添加方法（methods）。</p>
+
+<h3 id="插入数据">插入数据</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">obj</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="err">文档数据</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="删除数据">删除数据</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">obj</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="err">查询条件</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="更新数据">更新数据</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">obj</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="err">查询条件</span><span class="p">,</span><span class="err">更新对象</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="查询数据">查询数据</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">obj</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="err">查询条件</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span><span class="err">这个查询出所有满足条件的结果值</span>
+
+<span class="err">属性过滤</span> <span class="nx">find</span><span class="p">(</span><span class="err">条件</span><span class="p">,</span><span class="nx">field</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+
+<span class="err">单条数据</span> <span class="nx">findOne</span><span class="p">(</span><span class="nx">Conditions</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="条件查询">条件查询：</h3>
+
+<p>通过操作符的使用，我们就可对数据进行更细致性的查询。
+“$lt”(小于)，”$lte”(小于等于),”$gt”(大于)，”$gte”(大于等于)，”$ne”(不等于)，”$in”(可单值和多个值的匹配)，”$or”(查询多个键值的任意给定值)，”$exists”(表示是否存在的意思)”$all”。</p>
+
+<p>例子：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//查询年龄小于18的所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">$lt</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+<span class="c1">//查询年龄小于等于18的所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">$lte</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+<span class="c1">//查询年龄不等于18的所有文档记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">$ne</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄不等于18的查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+<span class="c1">//查询年龄大于18的所有文档记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">$gt</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄大于18的查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+<span class="c1">//查询年龄大于等于18的所有文档记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">$gte</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄大于等于18的查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+<span class="c1">//查询年龄大于等于18小于等于60所有文档记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">$gte</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="dl">"</span><span class="s2">$lte</span><span class="dl">"</span><span class="p">:</span> <span class="mi">60</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄大于等于18小于等于60查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+</code></pre></div></div>
+
+<p>“$in”和”$nin”</p>
+
+<p>和$ne操作符相反，$in相当于包含、等于，查询时查找包含于指定字段条件的数据。‘$nin’ “$in” 取反, 一个键不对应指定值，具体使用方法如下：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//查询年龄等于18的所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">age</span><span class="p">:{</span><span class="na">$in</span><span class="p">:</span> <span class="mi">18</span><span class="p">}},</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">){</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄为18的查询结果：</span><span class="dl">"</span><span class="p">,</span><span class="nx">doc</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+  
+<span class="c1">//查询年龄等于18和19的所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">age</span><span class="p">:{</span><span class="dl">"</span><span class="s2">$in</span><span class="dl">"</span><span class="p">:[</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">]}},</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">){</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄为18和19的查询结果：</span><span class="dl">"</span><span class="p">,</span><span class="nx">docs</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+  
+<span class="c1">//查询年龄不等于18和19的所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">age</span><span class="p">:{</span><span class="dl">"</span><span class="s2">$nin</span><span class="dl">"</span><span class="p">:[</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">]}},</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">){</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">年龄不等于18和19的查询结果：</span><span class="dl">"</span><span class="p">,</span><span class="nx">docs</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+</code></pre></div></div>
+
+<p>“$or”或查询：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//查询年龄等于18或者名字为tiny所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">$or</span><span class="dl">"</span><span class="p">:</span> <span class="p">[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">tiny</span><span class="dl">"</span><span class="p">},</span> <span class="p">{</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}]},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">$or查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+  
+<span class="c1">//查询年龄不等于18且名字不为tiny所有记录  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="dl">"</span><span class="s2">$nor</span><span class="dl">"</span><span class="p">:</span> <span class="p">[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">tiny</span><span class="dl">"</span><span class="p">},</span> <span class="p">{</span><span class="dl">"</span><span class="s2">age</span><span class="dl">"</span><span class="p">:</span> <span class="mi">18</span><span class="p">}]},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">$nor查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+</code></pre></div></div>
+
+<p>“$exists”查询:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//查询所有存在name属性的文档  </span>
+<span class="nx">userMode</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="p">{</span><span class="na">$exists</span><span class="p">:</span> <span class="kc">true</span><span class="p">}},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>  
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">exists查询结果：</span><span class="dl">"</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span>  
+    <span class="p">}</span>  
+<span class="p">});</span>  
+</code></pre></div></div>
+:ET

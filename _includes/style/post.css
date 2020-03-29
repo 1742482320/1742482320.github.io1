@@ -9,14 +9,15 @@
     margin-bottom: 20px;
 }
 .post_meta_i{
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: #999;
+    width: 120px;
 }
 .post-container .post_meta_img{
     display: inline;
     width: 20px;
     height: 20px;
-    vertical-align: baseline;
 }
 .post-container p{
     margin-bottom: 10px;

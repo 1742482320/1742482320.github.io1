@@ -25,22 +25,4 @@
     <!-- JS ============================================== -->
     <script src="{{site.baseurl}}/js/jquery-1.8.3.min.js"></script>
     <script src="{{site.baseurl}}/js/main.js"></script>
-
-    <!-- 访客统计插件: 不蒜 ============================================== -->
-    <script 
-        async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-    </script>  
-
-    <!-- 百度统计 -->
-    {% if site.baidu.id %}
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?{{site.baidu.id}}";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    {% endif %}
 </head>

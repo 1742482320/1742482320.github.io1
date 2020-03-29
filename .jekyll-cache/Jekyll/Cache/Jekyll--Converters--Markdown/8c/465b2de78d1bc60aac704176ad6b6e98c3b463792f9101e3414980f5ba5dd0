@@ -1,75 +1,70 @@
----
-layout: post
-title: npm的一些介绍和常用命令
-date: 2018-06-09 
-tags: 很久以前
----
+I"O<h3 id="npm-是什么">npm 是什么？</h3>
 
+<p>npm 为你和你的团队打开了连接整个 JavaScript 天才世界的一扇大门。它是世界上最大的软件注册表，每星期大约有 30 亿次的下载量，包含超过 600000 个 包（package） （即，代码模块）。来自各大洲的开源软件开发者使用 npm 互相分享和借鉴。包的结构使您能够轻松跟踪依赖项和版本。</p>
 
-### npm 是什么？
+<h3 id="安装">安装</h3>
 
-npm 为你和你的团队打开了连接整个 JavaScript 天才世界的一扇大门。它是世界上最大的软件注册表，每星期大约有 30 亿次的下载量，包含超过 600000 个 包（package） （即，代码模块）。来自各大洲的开源软件开发者使用 npm 互相分享和借鉴。包的结构使您能够轻松跟踪依赖项和版本。
+<p>NPM是随同NodeJS一起安装的包管理工具，nodejs已经集成了npm</p>
 
-### 安装
+<h3 id="常用命令">常用命令</h3>
 
-NPM是随同NodeJS一起安装的包管理工具，nodejs已经集成了npm
+<p>版本：npm -v</p>
 
-### 常用命令
+<p>升级npm：npm install npm -g</p>
 
-版本：npm -v
+<p>安装本地包：npm install <Module Name=""></Module></p>
 
-升级npm：npm install npm -g
+<p>安装全局包：npm install <Module Name=""> -g</Module></p>
 
-安装本地包：npm install <Module Name> 
+<p>查看本地包信息：npm ls</p>
 
-安装全局包：npm install <Module Name> -g
+<p>查看所有全局包信息：npm ls -g</p>
 
-查看本地包信息：npm ls
+<p>卸载包：npm uninstall <Module Name=""></Module></p>
 
-查看所有全局包信息：npm ls -g
+<p>更新包：npm update <Module Name=""></Module></p>
 
-卸载包：npm uninstall <Module Name>
+<p>搜索包：npm search <Module Name=""></Module></p>
 
-更新包：npm update <Module Name>
+<p>创建包：npm init</p>
 
-搜索包：npm search <Module Name>
+<p>在npm资源库中注册用户：npm adduser</p>
 
-创建包：npm init
+<p>发布包：npm publish</p>
 
-在npm资源库中注册用户：npm adduser
+<p>运行项目脚本：npm run <Task Name=""></Task></p>
 
-发布包：npm publish
+<h3 id="使用淘宝npm镜像">使用淘宝NPM镜像</h3>
 
-运行项目脚本：npm run <Task Name>
+<p>使用淘宝定制的 cnpm (gzip 压缩支持) 命令行工具代替默认的 npm：npm install -g cnpm –registry=https://registry.npm.taobao.org</p>
 
-### 使用淘宝NPM镜像
+<p>这样就可以使用 cnpm 命令来安装模块了：cnpm install <Module Name=""></Module></p>
 
-使用淘宝定制的 cnpm (gzip 压缩支持) 命令行工具代替默认的 npm：npm install -g cnpm --registry=https://registry.npm.taobao.org
+<h3 id="使用-packagejson">使用 package.json</h3>
 
-这样就可以使用 cnpm 命令来安装模块了：cnpm install <Module Name>
+<p>package.json 位于模块的目录下，用于定义包的属性。接下来让我们来看下 express 包的 package.json 文件，位于 node_modules/express/package.json 内容：</p>
 
-### 使用 package.json
+<p>Package.json 属性说明：</p>
 
-package.json 位于模块的目录下，用于定义包的属性。接下来让我们来看下 express 包的 package.json 文件，位于 node_modules/express/package.json 内容：
+<blockquote>
+  <ol>
+    <li>name - 包名。</li>
+    <li>version - 包的版本号。</li>
+    <li>description - 包的描述。</li>
+    <li>homepage - 包的官网 url 。</li>
+    <li>author - 包的作者姓名。</li>
+    <li>contributors - 包的其他贡献者姓名。</li>
+    <li>dependencies - 依赖包列表。如果依赖包没有安装，npm 会自动将依赖包安装在 node_module 目录下。</li>
+    <li>repository - 包代码存放的地方的类型，可以是 git 或 svn，git 可在 Github 上。</li>
+    <li>main - main 字段指定了程序的主入口文件，require(‘moduleName’) 就会加载这个文件。这个字段的默认值是模块根目录下面的 index.js。</li>
+    <li>keywords - 搜索关键字</li>
+    <li>script - 脚本命令。</li>
+  </ol>
+</blockquote>
 
-Package.json 属性说明：
+<p>让我们看看 express 包的 package.json 文件：</p>
 
-> 1. name - 包名。 
-> 2. version - 包的版本号。
-> 3. description - 包的描述。 
-> 4. homepage - 包的官网 url 。 
-> 5. author - 包的作者姓名。 
-> 6. contributors - 包的其他贡献者姓名。 
-> 7. dependencies - 依赖包列表。如果依赖包没有安装，npm 会自动将依赖包安装在 node_module 目录下。 
-> 8. repository - 包代码存放的地方的类型，可以是 git 或 svn，git 可在 Github 上。 
-> 9. main - main 字段指定了程序的主入口文件，require('moduleName') 就会加载这个文件。这个字段的默认值是模块根目录下面的 index.js。
-> 10. keywords - 搜索关键字 
-> 11. script - 脚本命令。 
-
-让我们看看 express 包的 package.json 文件：
-
-```
-{
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "name": "express",
   "description": "Fast, unopinionated, minimalist web framework",
   "version": "4.13.3",
@@ -171,7 +166,7 @@ Package.json 属性说明：
     "vhost": "~3.0.1"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": "&gt;= 0.10.0"
   },
   "files": [
     "LICENSE",
@@ -236,4 +231,5 @@ Package.json 属性说明：
   "_resolved": "https://registry.npmjs.org/express/-/express-4.13.3.tgz",
   "readme": "ERROR: No README data found!"
 }
-```
+</code></pre></div></div>
+:ET

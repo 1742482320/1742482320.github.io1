@@ -1,0 +1,18 @@
+I"7<h3 id="更新仓库">更新仓库</h3>
+
+<ol>
+  <li>git pull</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>git add .</td>
+          <td>git add &lt; file name &gt;</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>git commit -m “第一次提交”</li>
+  <li>git push</li>
+</ol>
+:ET
